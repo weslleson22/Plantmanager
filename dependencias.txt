@@ -1,0 +1,4 @@
+dependencias para instalação 
+expo install @expo/vector-icons
+npm i @expo-google-fonts/jost
+expo install expo-app-loading
