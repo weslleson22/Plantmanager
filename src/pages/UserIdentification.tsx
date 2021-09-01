@@ -1,5 +1,5 @@
 import { Jost_100Thin_Italic } from '@expo-google-fonts/jost';
-import React from  'react';
+import React, { useState } from  'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -7,13 +7,29 @@ import {
     TextInput,
     View,
     KeyboardAvoidingView,
-    Platform
+    Platform,
+    
 } from 'react-native';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import { Button } from '../components/Button';
 
 export function UserIndenticarion() {
+    const [isFocused, setIsFoused] = useState(false);
+    const [isFilled, setIsFilled] = useState(false);
+    const [name, setName]=useState<string>();
+    function handleInputBlur(){
+
+        setIsFoused(false);
+        setIsFilled(!!name);
+    }
+    function handleInputFocus(){
+        setIsFoused(true);
+    }
+    function handleInpuChange(value: string){
+        setIsFilled(!!value);
+        setName(value);
+    }
     return(
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView 
@@ -22,17 +38,27 @@ export function UserIndenticarion() {
             >
                 <View style={styles.content}>
                     <View style={styles.form}>
-                        <Text style={styles.emoji}>
-                            😃
-                        </Text>  
-                        <Text style={styles.title}>
-                            Como podemos {'\n'}
-                            chamar você?
-                        </Text>
+                            <View style={styles.header}>
+                                <Text style={styles.emoji}>
+                                    {isFilled ? '😉' : '😃'}
+                                </Text>  
+                                      <Text style={styles.title}>
+                                        Como podemos {'\n'}
+                                        chamar você?
+                                    </Text>
+                            </View>
     
                         <TextInput 
-                            style={styles.input}
+                            style={[
+                                styles.input,
+                               ( isFocused || isFilled) &&
+                               {borderColor: colors.green}
+                            
+                            ]}
                             placeholder="Digite seu nome"
+                            onBlur={handleInputBlur}
+                            onFocus={handleInputFocus}
+                            onChangeText={handleInpuChange}
                         />     
 
                     <View style={styles.footer}>
@@ -61,6 +87,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 54,
         alignItems: 'center',
+        
+    },
+    header:{
+        alignItems:'center'
         
     },
     emoji:{
