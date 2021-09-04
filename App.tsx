@@ -2,7 +2,7 @@
 import React from 'react';
 
 import {Text, View, StyleSheet} from 'react-native';
-import { UserIndenticarion } from './src/pages/UserIdentification';
+import { Confirmation } from './src/pages/Confirmation';
 import AppLoading from 'expo-app-loading';
 import {
   useFonts,
@@ -18,7 +18,7 @@ export default function App(){
   if(!fontsLoaded )
     return<AppLoading/>
   return(
-    <UserIndenticarion/>
+    <Confirmation/>
   )
     
   }
