@@ -2,3 +2,6 @@ dependencias para instalação
 expo install @expo/vector-icons
 npm i @expo-google-fonts/jost
 expo install expo-app-loading
+yarn add @react-navigation/native
+expo install react-native-screens react-native-safe-area-context
+yarn add @react-navigation/native-stack

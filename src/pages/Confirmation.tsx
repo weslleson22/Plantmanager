@@ -25,10 +25,14 @@ import {
                     Agora vamos começar a cuidar das 
                     platinhas com muito cuidado.
                 </Text>            
-                </View>
+                
 
                 <View style={styles.footer}>
-                    <Button/>
+                    <Button
+                    title="Começar"
+                    
+                    />
+                </View>
                 </View>
      </SafeAreaView>
      )
