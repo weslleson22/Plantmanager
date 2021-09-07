@@ -14,7 +14,7 @@ import {
      <SafeAreaView style={styles.container}>
             <View style={styles.content}>
                 <Text style={styles.emoji}>
-                😆
+                😆😆
                 </Text>
 
                 <Text style={styles.title}>

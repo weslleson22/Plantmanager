@@ -28,7 +28,7 @@ export function Welcome(){
                 <Text style={styles.title}>
                     Gerencie{'\n'}
                     suas plantas de {'\n'}
-                    forma fácil
+                    forma fácil.
                 </Text>
 
                 <Image
@@ -39,7 +39,8 @@ export function Welcome(){
 
                 <Text style={styles.subtitle}>
                     Não esqueça mais de regar suas plantas.
-                    Nós cuidamos de lembrar você sempre que{'\n'} precisar!. 
+                    Nós cuidamoss de lembrar você sempre que{'\n'} precisar!
+                     
                 </Text>
                 <TouchableOpacity style={styles.button} activeOpacity={0.7} onPress={handleStart}>
         
