@@ -5,3 +5,4 @@ expo install expo-app-loading
 yarn add @react-navigation/native
 expo install react-native-screens react-native-safe-area-context
 yarn add @react-navigation/native-stack
+npm i react-native-iphone-x-helper
