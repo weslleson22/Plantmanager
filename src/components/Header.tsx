@@ -3,14 +3,16 @@ import {Text, View, StyleSheet, Image} from "react-native";
 import colors from "../styles/colors";
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import userImg from '../assets/perfil.png';
+import { Jost_800ExtraBold } from "@expo-google-fonts/jost";
+import fonts from "../styles/fonts";
 export function Header(){
     return(
         <View style={styles.container}>
             <View>
-            <Text>Olá,</Text>
-            <Text>Wesleson</Text>
+            <Text style={styles.greeting}>Olá,</Text>
+            <Text style={styles.userName}>Wesleson</Text>
             </View>
-            <Image source={userImg}/>
+            <Image source={userImg} style={styles.image}/>
         </View>
     )
 }
@@ -23,6 +25,24 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         paddingVertical: 20,
         marginTop: getStatusBarHeight(),
-        
+        padding:20 
+    },
+    image:{
+        width : 80,
+        height: 80,
+        borderRadius: 40,
+
+    },
+    greeting:{
+        fontSize: 32,
+        color: colors.heading,
+        fontFamily: fonts.text
+    },
+    userName:{
+        fontSize: 32,
+        fontFamily: fonts.heading,
+        color:colors.heading,
+        lineHeight: 40
+
     }
 })
