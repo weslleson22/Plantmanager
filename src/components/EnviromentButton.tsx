@@ -44,11 +44,12 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 12
+        borderRadius: 12,
+        marginRight: 5
  
     }, 
     containerActive:{
-        backgroundColor: colors.heading,
+        backgroundColor: colors.green_light,
 
     },
     text:{
@@ -58,6 +59,6 @@ const styles = StyleSheet.create({
     },
     textActive:{
         fontFamily: fonts.heading,
-        color: colors.green,
+        color: colors.green_dark,
     }
 })
