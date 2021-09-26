@@ -1,17 +1,39 @@
 import { Jost_100Thin_Italic, Jost_400Regular } from "@expo-google-fonts/jost";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     StyleSheet,
     Text,
-    FlatList
+    
 } from "react-native";
+
+import { FlatList } from "react-native"; 
 import { EnviromentButton } from "../components/EnviromentButton";
 import { Header } from "../components/Header";
+import api from "../services/api";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
+interface EnviromentPros{
+    key: string;
+    title: string;
+}
 export function PlantSelect(){
+    const [enviroments, setEnvirtoments]= useState<EnviromentPros[]>([]);
+
+    useEffect(() =>{
+        async function fetchEnviroment() {
+            const {data} = await api.get('plants_environments');
+            setEnvirtoments([
+                {
+                    key:'all',
+                    title: 'Todos',
+                },
+                ...data
+            ]);
+        }
+        fetchEnviroment();
+    },[])
 
   
     return(
@@ -27,20 +49,22 @@ export function PlantSelect(){
                
             </View>
             <View>
-                <FlatList
-                data={[1,2,3,4,5]}
-                renderItem={({ item })=>(
-                    <EnviromentButton
-                    title="Cozinha"
-                     active
-                     />
+               <FlatList 
+                data={enviroments}
+               
+                renderItem={({ item }) => (
+                    <EnviromentButton 
+                        title={item.title}
+                        
+                        
+                        
+                    />
                 )}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.enviromentList}
-                />
-                
-            </View>
+               />
+           </View>
             
             
         </View>
@@ -71,8 +95,8 @@ const styles = StyleSheet.create({
     enviromentList:{
         height: 40,
         justifyContent: 'center',
-        paddingBottom:5,
-        marginLeft: 32,
+        paddingBottom:1,
+        marginLeft: 10,
         marginVertical: 32
     }
 })
