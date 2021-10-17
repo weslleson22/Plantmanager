@@ -8,6 +8,7 @@ yarn add @react-navigation/native-stack
 npm i react-native-iphone-x-helper
 yarn add axios
 npm install -g json-server => para simular api fake 
-json-server ./src/services/server.json --host ip --port 3333
+json-server ./src/services/server.json --host ip --port 3333 --delay 700
 expo install react-native-svg
+expo install lottie-react-native essa dependencia é para rodar animações
 
