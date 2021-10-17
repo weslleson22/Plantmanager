@@ -37,7 +37,8 @@ export function PlantSelect(){
 //a façao useEffect e para carregar a api 
     useEffect(() =>{
         async function fetchEnviroment() {
-            const {data} = await api.get('plants_environments');
+            const {data} = await api
+            .get('plants_environments?_sort=title&_order=asc');
             setEnvirtoments([
                 {
                     key:'all',
@@ -51,7 +52,8 @@ export function PlantSelect(){
 
     useEffect(() =>{
         async function fetchPlants() {
-            const {data} = await api.get('plants');
+            const {data} = await api
+            .get('plants?_sort=name&_order=asc');
             setplants(data);
         }
         fetchPlants();
@@ -134,7 +136,11 @@ const styles = StyleSheet.create({
     plants:{
         flex: 1,
         paddingHorizontal:32,
-        justifyContent:'center'
+         
+        justifyContent:'center',
+        
+    
+        
 
     }
 })
