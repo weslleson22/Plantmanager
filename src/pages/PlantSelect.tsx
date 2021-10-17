@@ -14,6 +14,8 @@ import { PlantCardPrimary } from "../components/PlantCardPrimary";
 import api from "../services/api";
 import colors from "../styles/colors";
 import fonts from "../styles/fonts";
+
+import {Load} from '../components/Load';
 //Contin
 interface EnviromentPros{
     key: string;
@@ -34,6 +36,21 @@ interface PlantsPros{
 export function PlantSelect(){
     const [enviroments, setEnvirtoments]= useState<EnviromentPros[]>([]);
     const [plants, setplants]= useState<PlantsPros[]>([]);
+    const [filteredplants, setfilteredplants]= useState<PlantsPros[]>([]);
+    const [enviromentSelected, setEnviromentSelected] = useState('all');
+
+    const [loading, setLoading] = useState(true);
+    function handleEnrivomentSeleted(environment:string){
+        setEnviromentSelected(environment);
+
+        if(environment=='all')
+        return setfilteredplants(plants);
+        const fitered=plants.filter(plant=>
+            plant.environments.includes(environment)
+            
+            );
+            setfilteredplants(fitered);
+    }
 //a façao useEffect e para carregar a api 
     useEffect(() =>{
         async function fetchEnviroment() {
@@ -55,10 +72,12 @@ export function PlantSelect(){
             const {data} = await api
             .get('plants?_sort=name&_order=asc');
             setplants(data);
+            setLoading(false);
         }
         fetchPlants();
     },[])
-  
+  if (loading)
+  return<Load/>
     return(
         <View style={styles.container}>
             <View style={styles.header}>
@@ -78,6 +97,8 @@ export function PlantSelect(){
                 renderItem={({ item }) => (
                     <EnviromentButton 
                         title={item.title}
+                        active={item.key==enviromentSelected}
+                        onPress={() => handleEnrivomentSeleted(item.key)}
                         
                         
                         
@@ -91,7 +112,7 @@ export function PlantSelect(){
 
            <View style={styles.plants}>
                <FlatList
-               data={plants}
+               data={filteredplants}
                renderItem={({item}) => (
                 <PlantCardPrimary data={item}/>
                )}        
