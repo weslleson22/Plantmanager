@@ -4,6 +4,7 @@ import {
     View,
     StyleSheet,
     Text,
+    ActivityIndicator
     
 } from "react-native";
 
@@ -40,6 +41,10 @@ export function PlantSelect(){
     const [enviromentSelected, setEnviromentSelected] = useState('all');
 
     const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1);
+    const [loadingMore, setLodinMore] = useState(false);
+    const [loadedAll, serLoadedAll] = useState(false);
+
     function handleEnrivomentSeleted(environment:string){
         setEnviromentSelected(environment);
 
@@ -51,6 +56,35 @@ export function PlantSelect(){
             );
             setfilteredplants(fitered);
     }
+
+    async function fetchPlants() {
+        const {data} = await api
+        .get(`plants?_sort=name&_order=asc&_page=${page}&_limit=8`);
+        if(!data)
+            return setLoading(true);
+
+        if(page > 1){
+            setplants(oldValue => [... oldValue, ...data])
+            setfilteredplants(oldValue => [... oldValue, ...data])
+        }else{
+            setplants(data)
+            setfilteredplants(data);
+        }
+        
+        setLoading(false);
+        setLodinMore(false);
+    }
+    
+    function handleFetchMore(distance: number){
+        if (distance<1)
+        return;
+        setLodinMore(true);
+        setPage(oldValue => oldValue+1);
+        fetchPlants();
+    }
+
+
+
 //a façao useEffect e para carregar a api 
     useEffect(() =>{
         async function fetchEnviroment() {
@@ -68,13 +102,10 @@ export function PlantSelect(){
     },[])
 
     useEffect(() =>{
-        async function fetchPlants() {
-            const {data} = await api
-            .get('plants?_sort=name&_order=asc');
-            setplants(data);
-            setLoading(false);
-        }
+        
         fetchPlants();
+
+
     },[])
   if (loading)
   return<Load/>
@@ -118,6 +149,15 @@ export function PlantSelect(){
                )}        
                showsHorizontalScrollIndicator={false}
                numColumns={2}
+               onEndReachedThreshold={0.1}
+               onEndReached={({distanceFromEnd})=>
+               handleFetchMore(distanceFromEnd)
+            }
+            ListFooterComponent={
+                loadingMore
+                ?<ActivityIndicator color={colors.green}/>
+                :<></>
+            }
                />
                
            </View>
